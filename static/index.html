@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Credit Ledger | Loan Risk Assessment</title>
+
+  <meta
+    name="description"
+    content="AI-powered consumer loan credit risk assessment."
+  />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&family=Playfair+Display:wght@500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <div class="app-shell">
+
+    <!-- ================= HEADER ================= -->
+
+    <header class="topbar">
+
+      <div class="brand">
+
+        <div class="brand-mark">
+          <div class="brand-mark-inner">
+            CL
+          </div>
+        </div>
+
+        <div class="brand-copy">
+          <h1>Credit Ledger</h1>
+          <p>Consumer Credit Intelligence</p>
+        </div>
+
+      </div>
+
+      <div class="service-status" id="apiStatus">
+
+        <span class="status-indicator" id="apiDot"></span>
+
+        <div>
+          <span class="status-label">MODEL SERVICE</span>
+          <span class="status-value" id="apiStatusText">
+            checking service…
+          </span>
+        </div>
+
+      </div>
+
+    </header>
+
+
+    <!-- ================= HERO ================= -->
+
+    <section class="hero">
+
+      <div class="hero-content">
+
+        <div class="eyebrow">
+          <span></span>
+          AUTOMATED UNDERWRITING
+        </div>
+
+        <h2>
+          Assess credit risk
+          <em>with confidence.</em>
+        </h2>
+
+        <p>
+          Submit an applicant's financial profile and receive a
+          model-driven assessment of default probability in seconds.
+        </p>
+
+      </div>
+
+      <div class="hero-meta">
+
+        <div>
+          <span class="meta-label">SYSTEM</span>
+          <strong>Credit Risk Model</strong>
+        </div>
+
+        <div>
+          <span class="meta-label">OUTPUT</span>
+          <strong>Probability + Verdict</strong>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="main-grid">
+
+
+      <!-- ================= APPLICATION FORM ================= -->
+
+      <section class="application-card">
+
+        <div class="card-header">
+
+          <div>
+            <span class="section-number">01</span>
+
+            <div>
+              <h3>Loan Application</h3>
+              <p>Applicant information & requested credit</p>
+            </div>
+          </div>
+
+          <span class="secure-badge">
+            ● SECURE
+          </span>
+
+        </div>
+
+
+        <form class="ledger" id="riskForm" novalidate>
+
+
+          <!-- APPLICANT -->
+
+          <fieldset class="ledger-section">
+
+            <legend>
+              <span>01</span>
+              Applicant profile
+            </legend>
+
+            <div class="form-grid">
+
+              <div class="form-group">
+                <label for="person_age">
+                  Age
+                  <span>YEARS</span>
+                </label>
+
+                <input
+                  type="number"
+                  id="person_age"
+                  name="person_age"
+                  min="18"
+                  max="100"
+                  step="1"
+                  value="30"
+                  required
+                />
+              </div>
+
+
+              <div class="form-group">
+
+                <label for="person_income">
+                  Annual income
+                  <span>INR</span>
+                </label>
+
+                <div class="input-prefix">
+                  <span>₹</span>
+
+                  <input
+                    type="number"
+                    id="person_income"
+                    name="person_income"
+                    min="0"
+                    step="1000"
+                    value="600000"
+                    required
+                  />
+                </div>
+
+              </div>
+
+
+              <div class="form-group">
+
+                <label for="person_home_ownership">
+                  Home ownership
+                </label>
+
+                <select
+                  id="person_home_ownership"
+                  name="person_home_ownership"
+                  required
+                >
+                  <option value="RENT">Renting</option>
+                  <option value="MORTGAGE">Mortgage</option>
+                  <option value="OWN">Owns outright</option>
+                  <option value="OTHER">Other</option>
+                </select>
+
+              </div>
+
+
+              <div class="form-group">
+
+                <label for="person_emp_length">
+                  Employment length
+                  <span>YEARS</span>
+                </label>
+
+                <input
+                  type="number"
+                  id="person_emp_length"
+                  name="person_emp_length"
+                  min="0"
+                  max="60"
+                  step="0.5"
+                  value="5"
+                  required
+                />
+
+              </div>
+
+            </div>
+
+          </fieldset>
+
+
+          <!-- LOAN -->
+
+          <fieldset class="ledger-section">
+
+            <legend>
+              <span>02</span>
+              Loan request
+            </legend>
+
+            <div class="form-grid">
+
+              <div class="form-group">
+
+                <label for="loan_intent">
+                  Loan purpose
+                </label>
+
+                <select
+                  id="loan_intent"
+                  name="loan_intent"
+                  required
+                >
+                  <option value="PERSONAL">Personal</option>
+                  <option value="EDUCATION">Education</option>
+                  <option value="MEDICAL">Medical</option>
+                  <option value="VENTURE">Venture</option>
+                  <option value="HOMEIMPROVEMENT">
+                    Home improvement
+                  </option>
+                  <option value="DEBTCONSOLIDATION">
+                    Debt consolidation
+                  </option>
+                </select>
+
+              </div>
+
+
+              <div class="form-group">
+
+                <label for="loan_grade">
+                  Loan grade
+                </label>
+
+                <select
+                  id="loan_grade"
+                  name="loan_grade"
+                  required
+                >
+                  <option value="A">A — Prime</option>
+                  <option value="B">B — Good</option>
+                  <option value="C">C — Moderate</option>
+                  <option value="D">D — Elevated</option>
+                  <option value="E">E — High</option>
+                  <option value="F">F — Very High</option>
+                  <option value="G">G — Critical</option>
+                </select>
+
+              </div>
+
+
+              <div class="form-group">
+
+                <label for="loan_amnt">
+                  Loan amount
+                  <span>INR</span>
+                </label>
+
+                <div class="input-prefix">
+
+                  <span>₹</span>
+
+                  <input
+                    type="number"
+                    id="loan_amnt"
+                    name="loan_amnt"
+                    min="0"
+                    step="500"
+                    value="100000"
+                    required
+                  />
+
+                </div>
+
+              </div>
+
+
+              <div class="form-group">
+
+                <label for="loan_int_rate">
+                  Interest rate
+                  <span>%</span>
+                </label>
+
+                <div class="input-suffix">
+
+                  <input
+                    type="number"
+                    id="loan_int_rate"
+                    name="loan_int_rate"
+                    min="0"
+                    max="40"
+                    step="0.01"
+                    value="11.5"
+                    required
+                  />
+
+                  <span>%</span>
+
+                </div>
+
+              </div>
+
+
+              <div class="form-group full-width">
+
+                <label for="loan_percent_income">
+                  Loan-to-income ratio
+                  <span>RATIO</span>
+                </label>
+
+                <div class="ratio-field">
+
+                  <input
+                    type="number"
+                    id="loan_percent_income"
+                    name="loan_percent_income"
+                    min="0"
+                    max="1"
+                    step="0.01"
+                    value="0.17"
+                    required
+                  />
+
+                  <div class="ratio-bar">
+                    <div class="ratio-fill"></div>
+                  </div>
+
+                </div>
+
+                <p class="field-hint" id="percentHint">
+                  Automatically calculated from income and loan amount.
+                </p>
+
+              </div>
+
+            </div>
+
+          </fieldset>
+
+
+          <!-- CREDIT BUREAU -->
+
+          <fieldset class="ledger-section">
+
+            <legend>
+              <span>03</span>
+              Credit bureau profile
+            </legend>
+
+            <div class="form-grid">
+
+              <div class="form-group">
+
+                <label for="cb_person_default_on_file">
+                  Prior default
+                </label>
+
+                <select
+                  id="cb_person_default_on_file"
+                  name="cb_person_default_on_file"
+                  required
+                >
+                  <option value="N">No prior default</option>
+                  <option value="Y">Default on file</option>
+                </select>
+
+              </div>
+
+
+              <div class="form-group">
+
+                <label for="cb_person_cred_hist_length">
+                  Credit history
+                  <span>YEARS</span>
+                </label>
+
+                <input
+                  type="number"
+                  id="cb_person_cred_hist_length"
+                  name="cb_person_cred_hist_length"
+                  min="0"
+                  max="60"
+                  step="1"
+                  value="6"
+                  required
+                />
+
+              </div>
+
+            </div>
+
+          </fieldset>
+
+
+          <!-- SUBMIT -->
+
+          <div class="submit-area">
+
+            <button
+              type="submit"
+              id="submitBtn"
+              class="assess-button"
+            >
+
+              <span class="button-content">
+
+                <span class="btn-label">
+                  Assess credit risk
+                </span>
+
+                <span class="arrow">
+                  →
+                </span>
+
+              </span>
+
+              <span
+                class="btn-spinner"
+                aria-hidden="true"
+              ></span>
+
+            </button>
+
+
+            <p
+              class="error-note"
+              id="errorNote"
+              role="alert"
+              hidden
+            ></p>
+
+            <p class="disclaimer">
+              Assessment generated using the configured machine-learning model.
+              This is not a lending decision.
+            </p>
+
+          </div>
+
+        </form>
+
+      </section>
+
+
+      <!-- ================= SIDE PANEL ================= -->
+
+      <aside class="info-panel">
+
+        <div class="info-panel-top">
+
+          <span class="panel-label">
+            HOW IT WORKS
+          </span>
+
+          <h3>
+            From application
+            <br />
+            to assessment.
+          </h3>
+
+        </div>
+
+
+        <div class="process">
+
+          <div class="process-item">
+
+            <div class="process-icon">
+              01
+            </div>
+
+            <div>
+              <strong>Profile</strong>
+              <p>
+                Applicant and loan attributes are validated.
+              </p>
+            </div>
+
+          </div>
+
+
+          <div class="process-line"></div>
+
+
+          <div class="process-item">
+
+            <div class="process-icon">
+              02
+            </div>
+
+            <div>
+              <strong>Model</strong>
+              <p>
+                The trained credit model estimates default probability.
+              </p>
+            </div>
+
+          </div>
+
+
+          <div class="process-line"></div>
+
+
+          <div class="process-item">
+
+            <div class="process-icon">
+              03
+            </div>
+
+            <div>
+              <strong>Verdict</strong>
+              <p>
+                Probability is compared against the decision threshold.
+              </p>
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div class="model-note">
+
+          <span class="model-note-icon">◆</span>
+
+          <div>
+            <strong>Model-driven assessment</strong>
+
+            <p>
+              The final verdict is based on the probability threshold
+              configured during model evaluation.
+            </p>
+          </div>
+
+        </div>
+
+      </aside>
+
+    </main>
+
+
+    <!-- ================= VERDICT ================= -->
+
+    <section
+      class="verdict"
+      id="verdict"
+      aria-live="polite"
+      hidden
+    >
+
+      <div class="verdict-header">
+
+        <div>
+
+          <span class="section-number">
+            02
+          </span>
+
+          <div>
+            <h3>Risk Assessment</h3>
+            <p>Model-generated credit decision</p>
+          </div>
+
+        </div>
+
+        <span class="assessment-complete">
+          ASSESSMENT COMPLETE
+        </span>
+
+      </div>
+
+
+      <div class="verdict-body">
+
+
+        <!-- GAUGE -->
+
+        <div class="gauge-container">
+
+          <svg
+            viewBox="0 0 200 200"
+            class="gauge"
+          >
+
+            <circle
+              class="gauge-track"
+              cx="100"
+              cy="100"
+              r="86"
+            />
+
+            <circle
+              class="gauge-fill"
+              id="gaugeFill"
+              cx="100"
+              cy="100"
+              r="86"
+            />
+
+            <line
+              class="gauge-threshold"
+              id="gaugeThreshold"
+              x1="100"
+              y1="14"
+              x2="100"
+              y2="30"
+            />
+
+          </svg>
+
+
+          <div class="gauge-readout">
+
+            <div>
+              <span
+                class="gauge-number"
+                id="probNumber"
+              >0</span>
+
+              <span class="gauge-percent">
+                %
+              </span>
+            </div>
+
+            <span class="gauge-caption">
+              DEFAULT PROBABILITY
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <!-- RESULT -->
+
+        <div class="verdict-detail">
+
+          <div class="result-heading">
+
+            <span class="result-label">
+              MODEL VERDICT
+            </span>
+
+            <div
+              class="stamp"
+              id="stampBadge"
+            >
+              <span id="stampText">
+                LOW RISK
+              </span>
+            </div>
+
+          </div>
+
+
+          <div class="facts-grid">
+
+            <div class="fact">
+
+              <span>
+                Default probability
+              </span>
+
+              <strong id="factProb">
+                —
+              </strong>
+
+            </div>
+
+
+            <div class="fact">
+
+              <span>
+                Decision threshold
+              </span>
+
+              <strong id="factThreshold">
+                —
+              </strong>
+
+            </div>
+
+
+            <div class="fact fact-wide">
+
+              <span>
+                Model result
+              </span>
+
+              <strong id="factResult">
+                —
+              </strong>
+
+            </div>
+
+          </div>
+
+
+          <div class="verdict-explanation">
+
+            <span class="explanation-icon">
+              i
+            </span>
+
+            <p>
+              The probability represents the model's estimated likelihood
+              of default. The verdict is determined by comparing this value
+              with the configured decision threshold.
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer class="footer">
+
+      <div>
+        <strong>Credit Ledger</strong>
+        <span>AI-assisted credit risk assessment</span>
+      </div>
+
+      <p>
+        For analytical and demonstration purposes only.
+      </p>
+
+    </footer>
+
+  </div>
+
+
+  <script src="script.js"></script>
+
+</body>
+</html>
